@@ -7,13 +7,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.contacts.databinding.ContactItemBinding
 import com.example.contacts.models.Contact
 
-class ContactItemAdapter(private val clickListener: (contactId: Long) -> Unit) :
+class ContactItemAdapter(
+    private val clickListener: (contactId: Long) -> Unit,
+    private val clickLongListener: (contact: Contact) -> Boolean
+) :
     ListAdapter<Contact, ContactItemAdapter.ContactViewHolder>(ContactDiffItemCallback()) {
     class ContactViewHolder(private val binding: ContactItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Contact, clickListener: (contactId: Long) -> Unit) {
+        fun bind(
+            item: Contact,
+            clickListener: (contactId: Long) -> Unit,
+            clickLongListener: (contact: Contact) -> Boolean
+        ) {
             binding.item = item
             binding.root.setOnClickListener { clickListener(item.contactId) }
+            binding.root.setOnLongClickListener { clickLongListener(item) }
         }
     }
 
@@ -23,6 +31,6 @@ class ContactItemAdapter(private val clickListener: (contactId: Long) -> Unit) :
     }
 
     override fun onBindViewHolder(holder: ContactViewHolder, position: Int) {
-        holder.bind(getItem(position), clickListener)
+        holder.bind(getItem(position), clickListener, clickLongListener)
     }
 }

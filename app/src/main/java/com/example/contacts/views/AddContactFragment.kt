@@ -5,8 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import com.example.contacts.R
 import com.example.contacts.databinding.FragmentContactControlBinding
 import com.example.contacts.models.ContactDatabase
@@ -44,7 +48,20 @@ class AddContactFragment : Fragment() {
             }
         }
 
+        settingToolbar()
+
         return view
+    }
+
+    private fun settingToolbar() {
+        val appCompatActivity = (activity as AppCompatActivity)
+        appCompatActivity.setSupportActionBar(binding.toolbar)
+        val navHostFragment =
+            appCompatActivity.supportFragmentManager.findFragmentById(R.id.fragment_container_view) as NavHostFragment
+        val navController = navHostFragment.navController
+        val builder = AppBarConfiguration.Builder(navController.graph)
+        val configuration = builder.build()
+        binding.toolbar.setupWithNavController(navController, configuration)
     }
 
     override fun onDestroy() {

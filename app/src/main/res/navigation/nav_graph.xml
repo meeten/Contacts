@@ -20,7 +20,7 @@
     <fragment
         android:id="@+id/addContactFragment"
         android:name="com.example.contacts.views.AddContactFragment"
-        android:label="fragment_add_contact"
+        android:label="Добавить контакт"
         tools:layout="@layout/fragment_contact_control">
         <action
             android:id="@+id/action_addContactFragment_to_contactsFragment"
@@ -29,7 +29,7 @@
     <fragment
         android:id="@+id/editContactFragment"
         android:name="com.example.contacts.views.EditContactFragment"
-        android:label="fragment_edit_contact"
+        android:label="Редактировать контакт"
         tools:layout="@layout/fragment_contact_control">
         <action
             android:id="@+id/action_editContactFragment_to_contactsFragment"

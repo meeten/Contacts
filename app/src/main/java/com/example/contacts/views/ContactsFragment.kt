@@ -11,6 +11,7 @@ import com.example.contacts.R
 import com.example.contacts.databinding.ContactItemBinding
 import com.example.contacts.databinding.FragmentContactControlBinding
 import com.example.contacts.databinding.FragmentContactsBinding
+import com.example.contacts.models.Contact
 import com.example.contacts.models.ContactDatabase
 import com.example.contacts.views.adapters.ContactItemAdapter
 import com.example.contacts.views.viewmodel.ContactsViewModel
@@ -36,7 +37,16 @@ class ContactsFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         val adapter =
-            ContactItemAdapter { contactId -> contactsViewModel.onClickContact(contactId) }
+            ContactItemAdapter(clickListener = { contactId ->
+                contactsViewModel.onClickContact(
+                    contactId
+                )
+            },
+                clickLongListener = { contact ->
+                    contactsViewModel.onClickLongContact(contact)
+                    showToolbar()
+                    true
+                })
         binding.rcView.adapter = adapter
 
         contactsViewModel.contacts.observe(viewLifecycleOwner) {
@@ -64,7 +74,32 @@ class ContactsFragment : Fragment() {
             }
         }
 
+
+        contactsViewModel.deleteContact.observe(viewLifecycleOwner) { contact ->
+            contact?.let {
+                binding.deleteButton.setOnClickListener {
+                    contactsViewModel.onDeleteContact(contact)
+                    hideToolbar()
+                }
+            }
+        }
+
         return binding.root
+    }
+
+
+    private fun showToolbar() {
+        binding.toolbar.visibility = View.VISIBLE
+        binding.appName.visibility = View.GONE
+
+        binding.cancelDeleteButton.setOnClickListener {
+            hideToolbar()
+        }
+    }
+
+    private fun hideToolbar() {
+        binding.toolbar.visibility = View.GONE
+        binding.appName.visibility = View.VISIBLE
     }
 
     override fun onDestroy() {

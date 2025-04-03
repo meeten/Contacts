@@ -1,7 +1,5 @@
 <resources>
-    <string name="app_name">Contacts</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_name">Контакты</string>
     <string name="add_contact">ДОБАВИТЬ КОНТАКТ</string>
     <string name="name">Name</string>
     <string name="phone">Phone</string>
@@ -9,4 +7,5 @@
     <string name="address">Address</string>
     <string name="save">Сохранить</string>
     <string name="back">Назад</string>
+    <string name="delete">Удалить</string>
 </resources>
