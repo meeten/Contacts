@@ -48,6 +48,12 @@
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
+        <SearchView
+            android:id="@+id/search_view"
+            android:queryHint="@string/find_contact"
+            android:layout_width="match_parent"
+            android:iconifiedByDefault="false"
+            android:layout_height="wrap_content"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rc_view"

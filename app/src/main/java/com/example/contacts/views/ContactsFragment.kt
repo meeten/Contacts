@@ -5,8 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
+import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.room.util.query
 import com.example.contacts.R
 import com.example.contacts.databinding.ContactItemBinding
 import com.example.contacts.databinding.FragmentContactControlBinding
@@ -83,6 +86,19 @@ class ContactsFragment : Fragment() {
                 }
             }
         }
+
+        binding.searchView.setOnQueryTextListener(object : OnQueryTextListener,
+            SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let { contactsViewModel.onSearchContact(it) }
+                return true
+            }
+
+            override fun onQueryTextChange(text: String?): Boolean {
+                text?.let { contactsViewModel.onSearchContact(text) }
+                return true
+            }
+        })
 
         return binding.root
     }

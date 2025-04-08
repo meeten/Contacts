@@ -9,7 +9,7 @@ import com.example.contacts.models.ContactDao
 import kotlinx.coroutines.launch
 
 class ContactsViewModel(private val contactDao: ContactDao) : ViewModel() {
-    private val _contacts = MutableLiveData<List<Contact>>()
+    private var _contacts = MutableLiveData<List<Contact>>()
     val contacts: LiveData<List<Contact>> get() = _contacts
 
     private val _navigateToContact = MutableLiveData<ContactNavigateEvent?>()
@@ -43,6 +43,10 @@ class ContactsViewModel(private val contactDao: ContactDao) : ViewModel() {
         viewModelScope.launch {
             contactDao.delete(contact)
         }
+    }
+
+    fun onSearchContact(query: String) {
+        contactDao.searchContact(query).observeForever { list -> _contacts.value = list }
     }
 
     fun onNavigationCompleted() {

@@ -8,4 +8,5 @@
     <string name="save">Сохранить</string>
     <string name="back">Назад</string>
     <string name="delete">Удалить</string>
+    <string name="find_contact">Найти контакт</string>
 </resources>

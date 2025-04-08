@@ -23,4 +23,7 @@ interface ContactDao {
 
     @Query("SELECT * FROM contact_table ORDER BY contactId DESC")
     fun getAll(): LiveData<List<Contact>>
+
+    @Query("SELECT * FROM contact_table WHERE contact_name  LIKE '%' || :query ||'%'  COLLATE NOCASE or contact_email LIKE '%' || :query || '%' COLLATE NOCASE ")
+    fun searchContact(query: String):LiveData<List<Contact>>
 }
